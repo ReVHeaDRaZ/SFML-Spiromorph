@@ -3,13 +3,14 @@
 #include <string>
 
 sf::Font font;
-sf::Text headingText, speedText, inphaseText, ampText, fpsText, controlsText;
+sf::Text headingText, currentSpiroText, speedText, inphaseText, ampText, fpsText, controlsText;
 
 void InitTextObjects(sf::RenderWindow* window);
 void SetSpeedText(float _speed);
 void SetFpsText(float _fps);
 void SetInphaseText(int _inphase, int _numElements);
 void SetAmpText(float _amp);
+void SetCurrentSpiroText(float _current);
 
 template <typename T>
 //function to convert a non-string variable to a string.
@@ -32,10 +33,11 @@ void InitTextObjects(sf::RenderWindow* window)
 	headingText.setStyle(sf::Text::Bold);
 	speedText 	= headingText;
 	speedText.setCharacterSize(20);
-	fpsText 	= speedText;
-	inphaseText = speedText;
-	ampText 	= speedText;
-	controlsText= speedText;
+	fpsText 		= speedText;
+	inphaseText 	= speedText;
+	ampText 		= speedText;
+	currentSpiroText= speedText;
+	controlsText	= speedText;
 	controlsText.setCharacterSize(15);
 
 	//Set Strings
@@ -44,15 +46,18 @@ void InitTextObjects(sf::RenderWindow* window)
 	inphaseText.setString("IN PHASE: ");
 	ampText.setString("AMPLITUDE: ");
 	fpsText.setString("FPS: ");
-	controlsText.setString("      **CONTROLS**\nSpeed-       PgUp/PgDn\nInPhase-     Home/End\nAmplitude- Ins/Del\nHide Hud-   H");
+	currentSpiroText.setString("SPIRO: ");
+	controlsText.setString("      **CONTROLS**\nSpawn Spiro- LMB\nSelect Spiro- Up/Dn\nSpeed-           PgUp/PgDn\nInPhase-         Home/End\nAmplitude-     Ins/Del\nHide Hud-       H");
 
 	//Set positions
 	headingText.setPosition((window->getSize().x / 2) - 170, 30);
-	speedText.setPosition(10, 30);
-	inphaseText.setPosition(10, 50);
-	ampText.setPosition(10, 70);
+	currentSpiroText.setPosition(10, 30);
+	speedText.setPosition(10, 50);
+	inphaseText.setPosition(10, 70);
+	ampText.setPosition(10, 90);
+
 	fpsText.setPosition(window->getSize().x -100, 30);
-	controlsText.setPosition(10, window->getSize().y-120);
+	controlsText.setPosition(10, window->getSize().y-130);
 
 	//load the font
 	//note that this path is relative to the workspace
@@ -62,6 +67,9 @@ void InitTextObjects(sf::RenderWindow* window)
 	}
 }
 
+void SetCurrentSpiroText(float _current){
+	currentSpiroText.setString("SPIRO:        " + to_string(_current));
+}
 void SetSpeedText(float _speed){
 	speedText.setString("SPEED:        " + to_string(_speed));
 }
