@@ -1,5 +1,5 @@
 # SFML-SpiroMorph
-Spiromorph - A port of [mickjc750/Spiromorph](https://https://github.com/mickjc750/Spiromorph) to SFML C++ Rewritten as a class (Can spawn multiple Spiromorphs) with bloom shader effects, HUD and runtime control of parameters
+Spiromorph - A port of [mickjc750/Spiromorph](https://github.com/mickjc750/Spiromorph) to SFML C++ Rewritten as a class (Can spawn multiple Spiromorphs) with bloom shader effects, HUD and runtime control of parameters
 
 # Controls
 
