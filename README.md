@@ -7,11 +7,12 @@ Spiromorph - A port of [mickjc750/Spiromorph](https://github.com/mickjc750/Spiro
 | ------------- | ------------- |
 | <b>LMB</b> | Spawn a Spiromorph |
 | <b>UP and DOWN-</b> | Select Spiromorph |
+| <b>[ and ]-</b> | Change Amount of Elements|
 | <b>PAGEUP and PAGEDOWN-</b> | Change Speed |
 | <b>HOME and END-</b> | Change Amount of Envelopes In Phase|
 | <b>INS and DEL-</b> | Change Amplitude|
 | <b>H-</b> | HUD ON/OFF |
-  
+
 # Executable for WIN32
 Just download the release, unzip and run SFML-Spiromorph.exe
 To see command line options run:

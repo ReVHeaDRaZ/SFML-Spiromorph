@@ -47,7 +47,7 @@ void InitTextObjects(sf::RenderWindow* window)
 	ampText.setString("AMPLITUDE: ");
 	fpsText.setString("FPS: ");
 	currentSpiroText.setString("SPIRO: ");
-	controlsText.setString("      **CONTROLS**\nSpawn Spiro- LMB\nSelect Spiro- Up/Dn\nElements-     [/]\nSpeed-           PgUp/PgDn\nInPhase-         Home/End\nAmplitude-     Ins/Del\nHide Hud-       H");
+	controlsText.setString("      **CONTROLS**\nSpawn Spiro- LMB\nSelect Spiro- Up/Dn\nElements-      [ / ]\nSpeed-           PgUp/PgDn\nInPhase-         Home/End\nAmplitude-     Ins/Del\nHide Hud-       H");
 
 	//Set positions
 	headingText.setPosition((window->getSize().x / 2) - 170, 30);
@@ -57,7 +57,7 @@ void InitTextObjects(sf::RenderWindow* window)
 	ampText.setPosition(10, 90);
 
 	fpsText.setPosition(window->getSize().x -100, 30);
-	controlsText.setPosition(10, window->getSize().y-130);
+	controlsText.setPosition(10, window->getSize().y-160);
 
 	//load the font
 	//note that this path is relative to the workspace
