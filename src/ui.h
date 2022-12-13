@@ -47,7 +47,7 @@ void InitTextObjects(sf::RenderWindow* window)
 	ampText.setString("AMPLITUDE: ");
 	fpsText.setString("FPS: ");
 	currentSpiroText.setString("SPIRO: ");
-	controlsText.setString("      **CONTROLS**\nSpawn Spiro- LMB\nSelect Spiro- Up/Dn\nSpeed-           PgUp/PgDn\nInPhase-         Home/End\nAmplitude-     Ins/Del\nHide Hud-       H");
+	controlsText.setString("      **CONTROLS**\nSpawn Spiro- LMB\nSelect Spiro- Up/Dn\nElements-     [/]\nSpeed-           PgUp/PgDn\nInPhase-         Home/End\nAmplitude-     Ins/Del\nHide Hud-       H");
 
 	//Set positions
 	headingText.setPosition((window->getSize().x / 2) - 170, 30);

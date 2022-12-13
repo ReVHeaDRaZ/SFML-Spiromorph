@@ -152,7 +152,23 @@ int main(int argc, char *argv[])
 			// Draw HUD ON/OFF
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H)
 				drawHud = !drawHud;
-
+			// Number of Elements
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::RBracket){
+				spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements++;
+				if(spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements > 30)
+					spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements = 30;
+				spiromorphs[selectedSpiro-1].ReinitNumberOfElements();
+				SetTextForCurrentSpiro();
+			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::LBracket){
+				spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements--;
+				if(spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements < 2)
+					spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements = 2;
+				if(spiromorphs[selectedSpiro-1].spiroOptions.envelopes_in_phase > spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements)
+					spiromorphs[selectedSpiro-1].spiroOptions.envelopes_in_phase = spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements;
+				spiromorphs[selectedSpiro-1].ReinitNumberOfElements();
+				SetTextForCurrentSpiro();
+			}
 			// Add a Spiromorph
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
 				spiromorphs.push_back(Spiromorph(options));
@@ -268,6 +284,6 @@ void SetSpiromorphSpeed(std::vector<Spiromorph> &spiros, int _selectSpiro, float
 void SetTextForCurrentSpiro(){
 	SetCurrentSpiroText(selectedSpiro);
 	SetSpeedText(spiromorphs[selectedSpiro-1].spiroOptions.envelope_speed);
-	SetInphaseText(spiromorphs[selectedSpiro-1].spiroOptions.envelopes_in_phase, options.number_of_elements);
+	SetInphaseText(spiromorphs[selectedSpiro-1].spiroOptions.envelopes_in_phase, spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements);
 	SetAmpText(spiromorphs[selectedSpiro-1].spiroOptions.amplitude);
 }

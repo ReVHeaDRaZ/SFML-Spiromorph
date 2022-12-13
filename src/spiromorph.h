@@ -1,10 +1,8 @@
 #pragma once
 #include "mainopt.h"
 
+#define M_PI 3.14159265358979323846
 extern struct mainopt_struct options;
-
-
-	#define M_PI 3.14159265358979323846
 
 	struct element_struct
 	{
@@ -60,6 +58,7 @@ public:
 	float element_radius;
 
 	void draw_frame(sf::RenderTarget &rend);
+	void ReinitNumberOfElements();
 	void reinit();
 	void Update(float FrameTime);
 
@@ -251,10 +250,17 @@ point_f Spiromorph::sum_points_f(point_f a, point_f b)
 	return sum;
 }
 
-
 void Spiromorph::reinit(){
 	element_radius = (spiroOptions.amplitude * 0.5 * spiroOptions.window_height / ((spiroOptions.number_of_elements - spiroOptions.envelopes_in_phase + 1)*0.5 + (spiroOptions.envelopes_in_phase - 1)*1.0));
 	envelope_init();
+}
+
+void Spiromorph::ReinitNumberOfElements(){
+	free(elements);
+	free(envelopes);
+	elements = static_cast<element_struct*>(malloc(sizeof(*elements)* spiroOptions.number_of_elements));
+	envelopes = static_cast<envelope_struct*>(calloc(sizeof(*envelopes), spiroOptions.number_of_elements));
+	reinit();
 }
 
 void Spiromorph::Update(float FrameTime){
