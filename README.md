@@ -1,10 +1,12 @@
 # SFML-SpiroMorph
-Spiromorph - A port of mickjc750/Spiromorph to SFML C++ with bloom shader effects, HUD and runtime control of parameters
+Spiromorph - A port of [mickjc750/Spiromorph](https://github.com/mickjc750/Spiromorph) to SFML C++ Rewritten as a class (Can spawn multiple Spiromorphs) with bloom shader effects, HUD and runtime control of parameters
 
 # Controls
 
 |  |  |
 | ------------- | ------------- |
+| <b>LMB</b> | Spawn a Spiromorph |
+| <b>UP and DOWN-</b> | Select Spiromorph |
 | <b>PAGEUP and PAGEDOWN-</b> | Change Speed |
 | <b>HOME and END-</b> | Change Amount of Envelopes In Phase|
 | <b>INS and DEL-</b> | Change Amplitude|
