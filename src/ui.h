@@ -2,8 +2,19 @@
 #include <sstream>
 #include <string>
 
+#define CONTROLS_TEXT 	"      **CONTROLS**\n"\
+						"Spawn Spiro-     LMB\n"\
+						"Select Spiro-     Up/Dn\n"\
+						"Elements-          [ / ]\n"\
+						"Speed-               PgUp/PgDn\n"\
+						"InPhase-             Home/End\n"\
+						"Amplitude-         Ins/Del\n"\
+						"Hide Hud-           H\n"\
+						"Glow Intensity-   7/8\n"\
+						"Glow Sharpness- 9/0\n"
+
 sf::Font font;
-sf::Text headingText, currentSpiroText, speedText, inphaseText, ampText, fpsText, controlsText;
+sf::Text headingText, currentSpiroText, speedText, inphaseText, ampText, fpsText, controlsText, bloomText;
 
 void InitTextObjects(sf::RenderWindow* window);
 void SetSpeedText(float _speed);
@@ -11,9 +22,10 @@ void SetFpsText(float _fps);
 void SetInphaseText(int _inphase, int _numElements);
 void SetAmpText(float _amp);
 void SetCurrentSpiroText(float _current);
+void SetBloomText(float _bloomintesity, float _bloomBlurAmount);
 
 template <typename T>
-//function to convert a non-string variable to a string.
+// function to convert a non-string variable to a string.
 std::string to_string(T value)
 {
 	std::ostringstream os;
@@ -24,7 +36,7 @@ std::string to_string(T value)
 
 void InitTextObjects(sf::RenderWindow* window)
 {
-	//Set Styles
+	// Set Styles
 	headingText.setFont(font);
 	headingText.setFillColor(sf::Color::White);
 	headingText.setOutlineColor(sf::Color::White);
@@ -39,28 +51,31 @@ void InitTextObjects(sf::RenderWindow* window)
 	currentSpiroText= speedText;
 	controlsText	= speedText;
 	controlsText.setCharacterSize(15);
+	bloomText = controlsText;
 
-	//Set Strings
+	// Set Strings
 	headingText.setString("SPIROMORPH");
 	speedText.setString("SPEED: ");
 	inphaseText.setString("IN PHASE: ");
 	ampText.setString("AMPLITUDE: ");
 	fpsText.setString("FPS: ");
 	currentSpiroText.setString("SPIRO: ");
-	controlsText.setString("      **CONTROLS**\nSpawn Spiro- LMB\nSelect Spiro- Up/Dn\nElements-      [ / ]\nSpeed-           PgUp/PgDn\nInPhase-         Home/End\nAmplitude-     Ins/Del\nHide Hud-       H");
+	controlsText.setString(CONTROLS_TEXT);
+	bloomText.setString("Intensity: ");
 
-	//Set positions
+	// Set positions
 	headingText.setPosition((window->getSize().x / 2) - 170, 30);
 	currentSpiroText.setPosition(10, 30);
 	speedText.setPosition(10, 50);
 	inphaseText.setPosition(10, 70);
 	ampText.setPosition(10, 90);
+	bloomText.setPosition(window->getSize().x -170, window->getSize().y-90);
 
 	fpsText.setPosition(window->getSize().x -100, 30);
-	controlsText.setPosition(10, window->getSize().y-160);
+	controlsText.setPosition(10, window->getSize().y-200);
 
-	//load the font
-	//note that this path is relative to the workspace
+	// load the font
+	// note that this path is relative to the workspace
 	if (!font.loadFromFile("content/HoboStd.otf"))
 	{
 		std::cout << "Failed to load font" << std::endl;
@@ -81,4 +96,7 @@ void SetAmpText(float _amp){
 }
 void SetFpsText(float _fps){
 	fpsText.setString("FPS: " + to_string(_fps));
+}
+void SetBloomText(float _bloomintesity, float _bloomBlurAmount){
+	bloomText.setString("*SHADERS*\nIntensity:   " + to_string(_bloomintesity) + "\nSharpness: " + to_string(_bloomBlurAmount));
 }

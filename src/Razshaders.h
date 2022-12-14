@@ -15,6 +15,7 @@ sf::RenderStates renderstate;
 bool InitShaders(float WIN_WIDTH, float WIN_HEIGHT);
 void UpdateShaderParameters(sf::Clock* clk, float posX, float posY);
 void SetFireShaderResolution(float x, float y);
+void SetBloomShader(float _intensity, float _blurAmount);
 
 bool InitShaders(float WIN_WIDTH, float WIN_HEIGHT){
 	// Shaders
@@ -53,13 +54,17 @@ bool InitShaders(float WIN_WIDTH, float WIN_HEIGHT){
 	glowshader.setUniform("resolution", sf::Vector2f(45, 45));
 	bloomshader.setUniform("resolution", sf::Vector2f(WIN_WIDTH, WIN_HEIGHT));
 
-	//Set Blend renderstate for glow
+	// Set Blend renderstate for glow
 	renderstate.blendMode = sf::BlendAdd;
 	renderstate.shader = &glowshader;
 
-	//Create Texture and Sprite for fireball
+	// Create Texture and Sprite for fireball
 	firetexture.create(WIN_WIDTH, WIN_HEIGHT);
 	fireball.setTexture(firetexture);
+
+	// Set Bloom Parameters
+	bloomshader.setUniform("intensity", 3.0f);
+	bloomshader.setUniform("blurSizeAmount", 640.0f);
 
 	// Create Rendertexture for shader sprite
 	rendertexture.create(WIN_WIDTH, WIN_HEIGHT);
@@ -78,4 +83,9 @@ void UpdateShaderParameters(sf::Clock* clk, float posX, float posY){
 
 void SetFireShaderResolution(float x, float y){
 	fireshader.setUniform("resolution", sf::Vector2f(x, y));
+}
+
+void SetBloomShader(float _intensity, float _blurAmount){
+	bloomshader.setUniform("intensity", _intensity);
+	bloomshader.setUniform("blurSizeAmount", _blurAmount);
 }

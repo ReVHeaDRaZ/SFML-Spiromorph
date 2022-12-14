@@ -21,6 +21,9 @@ std::vector<Spiromorph> spiromorphs;
 int numberOfSpiros 	= 1;
 int selectedSpiro	= 1;
 
+float bloomIntensity = 3.0f;
+float bloomBlurAmount = 640.0f;
+
 uint32_t get_elapsed_u32(uint32_t current);
 void CalculateFrameTime(sf::Clock Frameclk);
 
@@ -31,20 +34,21 @@ void InitANewSpiromorph(std::vector<Spiromorph> &spiros, int _selectSpiro, struc
 void UpdateSpiromorphs(std::vector<Spiromorph> &spiros, int _numberOfSpiros, float Frametime);
 void SetSpiromorphSpeed(std::vector<Spiromorph> &spiros, int _selectSpiro, float _speed);
 void SetTextForCurrentSpiro();
+void DrawHud(sf::RenderTarget &window);
 
 // Main------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
 	int retval = 0;
 
-	//	Parse options,
+	// Parse options,
 	options = mainopt_parse(argc, argv);
 	if(options.error)
 		retval = -1;
 	if(options.finished)
 		return retval;
 
-	//Create a window
+	// Create a window
 	winW = options.window_width; // Window Size
 	winH = options.window_height;
 	sf::Uint32 windowStyle;
@@ -57,33 +61,34 @@ int main(int argc, char *argv[])
 	sf::RenderWindow window(sf::VideoMode(winW, winH), "Spiromorph", windowStyle);
 	window.setFramerateLimit(60);
 
-	//Initialize Shaders
+	// Initialize Shaders
 	if(!InitShaders(winW,winH)) return -1;
 
-	//Creating text and setting it's font and parameters
+	// Creating text and setting it's font and parameters
 	InitTextObjects(&window);
 
 	// Start a Clock for shaders and frames
 	sf::Clock clk;
 
-	//Initialize Spiromorphs
-
+	// Initialize Spiromorphs
 	for(int i=0; i<numberOfSpiros; i++)
 		spiromorphs.push_back(Spiromorph(options));
 
 	ReinitAllSpiromorphs(spiromorphs, numberOfSpiros, options);
 
+	// Initialize Hud
 	SetCurrentSpiroText(selectedSpiro);
 	SetSpeedText(options.envelope_speed);
 	SetInphaseText(options.envelopes_in_phase, options.number_of_elements);
 	SetAmpText(options.amplitude);
+	SetBloomText(bloomIntensity, bloomBlurAmount);
 
 	// Window Loop-------------------------------------------------
 	while (window.isOpen())
 	{
 		sf::Event event;
 
-		//handle event inputs
+		// handle event inputs
 		while (window.pollEvent(event))
 		{
 			// Close window if x button is pressed
@@ -179,6 +184,30 @@ int main(int argc, char *argv[])
 				selectedSpiro = numberOfSpiros;
 				SetTextForCurrentSpiro();
 			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num8){
+				bloomIntensity += 0.5f;
+				if(bloomIntensity > 10.0f) bloomIntensity = 10.0f;
+				SetBloomShader(bloomIntensity, bloomBlurAmount);
+				SetBloomText(bloomIntensity, bloomBlurAmount);
+			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num7){
+				bloomIntensity -= 0.5f;
+				if(bloomIntensity < 0.0f) bloomIntensity = 0.0f;
+				SetBloomShader(bloomIntensity, bloomBlurAmount);
+				SetBloomText(bloomIntensity, bloomBlurAmount);
+			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num0){
+				bloomBlurAmount += 5.0f;
+				if(bloomBlurAmount > 1000.0f) bloomBlurAmount = 1000.0f;
+				SetBloomShader(bloomIntensity, bloomBlurAmount);
+				SetBloomText(bloomIntensity, bloomBlurAmount);
+			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num9){
+				bloomBlurAmount -= 5.0f;
+				if(bloomBlurAmount < 0.0f) bloomBlurAmount = 0.0f;
+				SetBloomShader(bloomIntensity, bloomBlurAmount);
+				SetBloomText(bloomIntensity, bloomBlurAmount);
+			}
 		}
 
 		CalculateFrameTime(clk);
@@ -209,12 +238,7 @@ int main(int argc, char *argv[])
 
 		// Draw Hud
 		if(drawHud){
-			window.draw(currentSpiroText);
-			window.draw(speedText);
-			window.draw(fpsText);
-			window.draw(inphaseText);
-			window.draw(ampText);
-			window.draw(controlsText);
+			DrawHud(window);
 		}
 
 		window.display();
@@ -286,4 +310,14 @@ void SetTextForCurrentSpiro(){
 	SetSpeedText(spiromorphs[selectedSpiro-1].spiroOptions.envelope_speed);
 	SetInphaseText(spiromorphs[selectedSpiro-1].spiroOptions.envelopes_in_phase, spiromorphs[selectedSpiro-1].spiroOptions.number_of_elements);
 	SetAmpText(spiromorphs[selectedSpiro-1].spiroOptions.amplitude);
+}
+
+void DrawHud(sf::RenderTarget &window){
+	window.draw(currentSpiroText);
+	window.draw(speedText);
+	window.draw(fpsText);
+	window.draw(inphaseText);
+	window.draw(ampText);
+	window.draw(controlsText);
+	window.draw(bloomText);
 }

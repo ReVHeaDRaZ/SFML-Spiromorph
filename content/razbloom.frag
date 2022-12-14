@@ -2,14 +2,16 @@
 uniform sampler2D currentTexture;
 uniform float time;
 uniform vec2 resolution;
-
-const float blurSize=1./640.;
-const float intensity=2.95;
+uniform float intensity;
+uniform float blurSizeAmount;
+//const float blurSize=1./640.;
+//const float intensity=2.95;
 
 void main(){
 	vec2 iResolution=resolution;
 	vec4 sum=vec4(0);
 	vec2 texcoord=gl_FragCoord.xy/iResolution.xy;
+	float blurSize= 1. / blurSizeAmount;
 	//vec2 texcoord=gl_TexCoord[0].xy;
 
 	sum+=texture2D(currentTexture,vec2(texcoord.x,texcoord.y))*.20;
