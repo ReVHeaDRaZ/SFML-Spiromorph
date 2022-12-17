@@ -51,10 +51,10 @@ bool InitShaders(float WIN_WIDTH, float WIN_HEIGHT){
 
 	// Set Shader resolutions
 	fireshader.setUniform("resolution", sf::Vector2f(45, 45));
-	glowshader.setUniform("resolution", sf::Vector2f(45, 45));
+	glowshader.setUniform("resolution", sf::Vector2f(WIN_WIDTH/16, WIN_HEIGHT/16));
 	bloomshader.setUniform("resolution", sf::Vector2f(WIN_WIDTH, WIN_HEIGHT));
 
-	// Set Blend renderstate for glow
+	// Set Blend renderstate for glowing mouse
 	renderstate.blendMode = sf::BlendAdd;
 	renderstate.shader = &glowshader;
 

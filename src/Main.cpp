@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
 
 	sf::RenderWindow window(sf::VideoMode(winW, winH), "Spiromorph", windowStyle);
 	window.setFramerateLimit(60);
+	window.setMouseCursorVisible(false);
 
 	// Initialize Shaders
 	if(!InitShaders(winW,winH)) return -1;
@@ -184,26 +185,26 @@ int main(int argc, char *argv[])
 				selectedSpiro = numberOfSpiros;
 				SetTextForCurrentSpiro();
 			}
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num8){
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W){
 				bloomIntensity += 0.5f;
 				if(bloomIntensity > 10.0f) bloomIntensity = 10.0f;
 				SetBloomShader(bloomIntensity, bloomBlurAmount);
 				SetBloomText(bloomIntensity, bloomBlurAmount);
 			}
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num7){
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S){
 				bloomIntensity -= 0.5f;
 				if(bloomIntensity < 0.0f) bloomIntensity = 0.0f;
 				SetBloomShader(bloomIntensity, bloomBlurAmount);
 				SetBloomText(bloomIntensity, bloomBlurAmount);
 			}
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num0){
-				bloomBlurAmount += 5.0f;
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D){
+				bloomBlurAmount += 8.0f;
 				if(bloomBlurAmount > 1000.0f) bloomBlurAmount = 1000.0f;
 				SetBloomShader(bloomIntensity, bloomBlurAmount);
 				SetBloomText(bloomIntensity, bloomBlurAmount);
 			}
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num9){
-				bloomBlurAmount -= 5.0f;
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A){
+				bloomBlurAmount -= 8.0f;
 				if(bloomBlurAmount < 0.0f) bloomBlurAmount = 0.0f;
 				SetBloomShader(bloomIntensity, bloomBlurAmount);
 				SetBloomText(bloomIntensity, bloomBlurAmount);
@@ -214,7 +215,7 @@ int main(int argc, char *argv[])
 		UpdateSpiromorphs(spiromorphs, numberOfSpiros, frame_time);
 
 		// Set shader parameters
-		UpdateShaderParameters(&clk, window.getSize().x/2, (window.getSize().y/2)+350);
+		UpdateShaderParameters(&clk, sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
 
 		window.clear();
 
@@ -235,6 +236,12 @@ int main(int argc, char *argv[])
 			render.setTexture(rendertexture.getTexture());
 			window.draw(render, &bloomshader);
 		}
+
+		// Draw Glowing Mouse pointer
+		rendertexture.clear(sf::Color::Transparent);
+		rendertexture.display();
+		render.setTexture(rendertexture.getTexture());
+		window.draw(render, renderstate);
 
 		// Draw Hud
 		if(drawHud){

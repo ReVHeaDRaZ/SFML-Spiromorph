@@ -10,8 +10,8 @@
 						"InPhase-             Home/End\n"\
 						"Amplitude-         Ins/Del\n"\
 						"Hide Hud-           H\n"\
-						"Glow Intensity-   7/8\n"\
-						"Glow Sharpness- 9/0\n"
+						"Glow Intensity-   W/S\n"\
+						"Glow Sharpness- A/D\n"
 
 sf::Font font;
 sf::Text headingText, currentSpiroText, speedText, inphaseText, ampText, fpsText, controlsText, bloomText;
@@ -83,13 +83,13 @@ void InitTextObjects(sf::RenderWindow* window)
 }
 
 void SetCurrentSpiroText(float _current){
-	currentSpiroText.setString("SPIRO:        " + to_string(_current));
+	currentSpiroText.setString("SPIRO:         " + to_string(_current));
 }
 void SetSpeedText(float _speed){
-	speedText.setString("SPEED:        " + to_string(_speed));
+	speedText.setString("SPEED:         " + to_string(_speed));
 }
 void SetInphaseText(int _inphase, int _numElements){
-	inphaseText.setString("IN PHASE:   " + to_string(_inphase) + " of " + to_string(_numElements));
+	inphaseText.setString("IN PHASE:    " + to_string(_inphase) + " of " + to_string(_numElements));
 }
 void SetAmpText(float _amp){
 	ampText.setString("AMPLITUDE: " + to_string(_amp));
@@ -98,5 +98,5 @@ void SetFpsText(float _fps){
 	fpsText.setString("FPS: " + to_string(_fps));
 }
 void SetBloomText(float _bloomintesity, float _bloomBlurAmount){
-	bloomText.setString("*SHADERS*\nIntensity:   " + to_string(_bloomintesity) + "\nSharpness: " + to_string(_bloomBlurAmount));
+	bloomText.setString("*BLOOM SHADER*\n  Intensity:   " + to_string(_bloomintesity) + "\n  Sharpness: " + to_string(_bloomBlurAmount));
 }

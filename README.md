@@ -12,6 +12,8 @@ Spiromorph - A port of [mickjc750/Spiromorph](https://github.com/mickjc750/Spiro
 | <b>HOME and END-</b> | Change Amount of Envelopes In Phase|
 | <b>INS and DEL-</b> | Change Amplitude|
 | <b>H-</b> | HUD ON/OFF |
+| <b>W and S-</b> | Bloom Shader Intensity |
+| <b>A and D-</b> | Bloom Shader Sharpness |
 
 # Executable for WIN32
 Just download the release, unzip and run SFML-Spiromorph.exe
